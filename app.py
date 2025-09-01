@@ -70,7 +70,7 @@ uploaded_file = st.file_uploader(
 
 if uploaded_file is not None:
     # 显示上传的图片
-    st.image(uploaded_file, caption="你上传的图片", use_column_width=True)
+    st.image(uploaded_file, caption="你上传的图片", use_container_width=True)
 
     # 显示一个加载状态提示
     with st.spinner('正在努力识别中，请稍候...'):
