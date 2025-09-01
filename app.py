@@ -11,14 +11,14 @@ st.set_page_config(
 )
 
 try:
-    # 优先从 Streamlit secrets 获取 API Key
+    # 从 Streamlit secrets 获取 API Key
     api_key = st.secrets["GOOGLE_API_KEY"]
 except (FileNotFoundError, KeyError):
-    # 如果 secrets 中没有，尝试从环境变量获取 (适用于本地开发)
+    # 如果 secrets 中没有，尝试从环境变量获取
     api_key = os.getenv("GOOGLE_API_KEY")
 
 if not api_key:
-    st.error("错误：Google API Key 未配置。请在 Streamlit secrets 或环境变量中设置 GOOGLE_API_KEY。")
+    st.error("错误： API Key 未配置。请在 Streamlit secrets 或环境变量中设置 GOOGLE_API_KEY。")
     st.stop()
 
 genai.configure(api_key=api_key)
@@ -42,8 +42,10 @@ def get_plant_info(image_data):
         请识别这张图片中的主要植物是什么？请只提供以下信息：
         1.  **植物名称**：最可能的物种名称（中文和学名）。
         2.  **百科资料**：一段简洁的、适合普通人阅读的百科介绍，包括其主要特征、生长习性、分布范围和常见用途等。
+        3.  **附加信息**：如果是花卉，请附上简短的对于该种类花卉养护注意事项；如果是蔬菜，请附上两个使用该蔬菜的简单菜谱；若为蔬菜花卉以外的植物，则不显示附加信息。
         请使用 Markdown 格式化你的回答，突出标题。如果图片中没有植物或无法识别，请友好地告知用户。
         """
+
 
         # 调用模型
         response = model.generate_content([prompt, image_part])
@@ -98,7 +100,7 @@ else:
 st.markdown("---")
 st.markdown(
     "<div style='text-align: center; color: grey;'>"
-    "V1.0"
+    "V1.1"
     "</div>",
     unsafe_allow_html=True
 )
