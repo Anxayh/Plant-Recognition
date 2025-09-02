@@ -100,7 +100,7 @@ else:
 st.markdown("---")
 st.markdown(
     "<div style='text-align: center; color: grey;'>"
-    "V1.1"
+    "Ver1.2"
     "</div>",
     unsafe_allow_html=True
 )
